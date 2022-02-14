@@ -8,7 +8,7 @@ of the project. This is because they are ignored by .gitignore.
 
 ### This should contain:
 
-PGDATABASE=nc_news
+PGDATABASE= <your dev DatabaseName>
 
 ### Add:
 
@@ -16,5 +16,5 @@ PGDATABASE=nc_news
 
 ### this should contain
 
-PGDATABASE=nc_news_test
+PGDATABASE= <your test DatabaseName>
 
