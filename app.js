@@ -23,7 +23,7 @@ app.all('/*', (req, res, next) => {
 // -------------------------------------------------------
 app.use((err, req, res, next) => {
     const {status, msg} = err;
-    console.log(err);
+
     if(status) {
         res.status(status).send({msg});
     }else
@@ -31,7 +31,6 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    console.log(err);
     res.status(500).send({msg: 'server error'});
 });
 
