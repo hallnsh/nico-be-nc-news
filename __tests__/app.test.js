@@ -5,7 +5,7 @@ const data = require('../db/data/test-data');
 const db = require('../db/connection');
 
 afterAll(() => {
-    if (db.end) db.end();
+    db.end();
   });
 
 beforeEach(() => seed(data));
@@ -28,7 +28,6 @@ describe('app()', () => {
               .expect(200)
               .then(({ body }) => {
                 const { topics } = body;
-                expect(topics).toBeInstanceOf(Array);
                 topics.forEach((topic) => {
                             expect(topic).toEqual(
                                     expect.objectContaining({
@@ -45,8 +44,6 @@ describe('app()', () => {
               .expect(200)
               .then(({ body }) => {
                 const { topics } = body;
-                expect(topics).toBeInstanceOf(Array);
-                console.log(topics[0]);
                 expect(topics).toHaveLength(3);
               });
         });
@@ -55,19 +52,9 @@ describe('app()', () => {
               .get('/not-an-endpoint')
               .expect(404)
               .then(({ body: {msg} }) => {
-                  console.log('ERROR MESSAGE -----',{body: {msg}});
                 expect(msg).toBe('path not found');
               });
         });
-        // test('status:500, responds with server error message for any other problem with server', () => {
-        //     return request(app)
-        //       .get('/not-an-endpoint')
-        //       .expect(500)
-        //       .then(({ body: {msg} }) => {
-        //           console.log('ERROR MESSAGE -----',{body: {msg}});
-        //         expect(msg).toBe('server error');
-        //       });
-        // });
      });
 });
 
