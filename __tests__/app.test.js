@@ -106,7 +106,7 @@ describe('app()', () => {
               });
         });
     });
-/*
+
     describe('PATCH /api/articles/:article_id', () => {
       test('status:200, responds with the updated article', () => {
         const articleSelectedId = 1
@@ -142,7 +142,7 @@ describe('app()', () => {
               });
       });
     });
-    
+   /* 
     describe('GET /api/users', () => {
       test('status:200, responds with an array of users objects', () => {
           return request(app)
