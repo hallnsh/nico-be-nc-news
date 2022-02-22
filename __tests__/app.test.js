@@ -28,7 +28,6 @@ describe('app()', () => {
               .expect(200)
               .then(({ body }) => {
                 const { topics } = body;
-                console.log(topics);
                 topics.forEach((topic) => {
                             expect(topic).toEqual(
                                     expect.objectContaining({
@@ -142,7 +141,7 @@ describe('app()', () => {
               });
       });
     });
-   /* 
+  
     describe('GET /api/users', () => {
       test('status:200, responds with an array of users objects', () => {
           return request(app)
@@ -187,6 +186,7 @@ describe('app()', () => {
           });
       });
     });
+    /*
     describe('GET /api/articles', () => {
       test('status:200, responds with an array of 12 article objects for the test data', () => {
         return request(app)
