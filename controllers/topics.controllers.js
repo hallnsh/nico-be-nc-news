@@ -1,5 +1,5 @@
 const {fetchTopics} = require('../models/topics.models');
-
+// send status 200 if successful and the topics array
 exports.getTopics = (req, res, next) => {
     fetchTopics()
       .then((topics) => {

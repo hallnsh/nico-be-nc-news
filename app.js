@@ -1,16 +1,43 @@
 const express = require('express');
-const { getArticleById } = require('./controllers/articles.controllers');
+const { getArticleById, 
+        patchArticleById, 
+        getArticles, 
+        getArticleCommentCount, 
+        getCommentsByArticleId,
+        getArticlesAndCommentCount,
+        getArticlesByQuery
+        } = require('./controllers/articles.controllers');
+
 const {getTopics} = require('./controllers/topics.controllers');
+const {getUsers} = require('./controllers/users.controllers');
+const {postCommentByArticleId, deleteCommentById, getAllComments} = require('./controllers/comments.controllers')
 const app = express();
 
 app.use(express.json());
 
 app.get('/api/topics', getTopics);
-app.get('/api/articles/:article_id', getArticleById);
-//app.patch('/api/articles/:article_id', patchArticleById);
-//app.get('/api/users', getUsers);
-//app.get('/api/articles', getArticles);
-//app.get('/api/articles/:article_id/comments', getArticleCommentsByArticleId);
+
+//app.get('/api/articles/:article_id', getArticleById);     // superceded
+/*
+app.patch('/api/articles/:article_id', patchArticleById);
+*/
+/*
+app.get('/api/users', getUsers);
+*/
+//app.get('/api/articles', getArticles);    // superceded
+//app.get('/api/articles/:article_id/commentcount', getArticleCommentCount);
+/*
+app.get('/api/articles/:article_id', getArticleCommentCount);
+app.get('/api/articles/:article_id/comments', getCommentsByArticleId);
+*/
+//app.get('/api/articles', getArticlesAndCommentCount);
+/*
+app.post('/api/articles/:article_id/comments', postCommentByArticleId);
+app.get('/api/articles', getArticlesByQuery);
+app.delete('/api/comments/:comment_id', deleteCommentById);
+*/
+
+
 
 // this is the wild card app request, i.e. consider all
 // requests with any possible endpoint.
@@ -31,8 +58,14 @@ app.use((err, req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
-    // Handle PSQL ERRORs
+   
     const {status, msg, code} = err;      
+
+    // In the case of a SQL error 22P02 this is an invalid id
+ //   console.log('app.use------------code = ',code);
+    if(code === '23503') {
+        res.status(400).send({msg: 'Violation (INVALID) username'});
+    }
 
     if(code === '22P02') {
         res.status(400).send({msg: 'invalid id'});
@@ -40,7 +73,9 @@ app.use((err, req, res, next) => {
     next(err);
 });
 
+    
 app.use((err, req, res, next) => {
+    // this is the catch all server error which there is no test for!
     res.status(500).send({msg: 'server error'});
 });
 
