@@ -57,7 +57,7 @@ describe('app()', () => {
               });
         });
     });
-/*
+
     describe('GET /api/articles/:article_id', () => {
         test('status:200, responds with an article object and it contains correct properties', () => {
             return request(app)
@@ -65,6 +65,7 @@ describe('app()', () => {
               .expect(200)
               .then(({ body }) => {
                 const { article } = body;    // body contains article
+                // check the articles has the correct properties
                 expect(article).toBeInstanceOf(Object);
                     expect(article).toEqual(
                              expect.objectContaining({
@@ -105,7 +106,7 @@ describe('app()', () => {
               });
         });
     });
-
+/*
     describe('PATCH /api/articles/:article_id', () => {
       test('status:200, responds with the updated article', () => {
         const articleSelectedId = 1
