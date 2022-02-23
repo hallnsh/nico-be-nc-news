@@ -23,7 +23,8 @@ app.patch('/api/articles/:article_id', patchArticleById);
 
 app.get('/api/users', getUsers);
 
-//app.get('/api/articles', getArticles);    // superceded
+app.get('/api/articles', getArticles);    // superceded
+
 //app.get('/api/articles/:article_id/commentcount', getArticleCommentCount);
 /*
 app.get('/api/articles/:article_id', getArticleCommentCount);

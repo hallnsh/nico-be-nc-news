@@ -186,7 +186,7 @@ describe('app()', () => {
           });
       });
     });
-    /*
+    
     describe('GET /api/articles', () => {
       test('status:200, responds with an array of 12 article objects for the test data', () => {
         return request(app)
@@ -205,7 +205,6 @@ describe('app()', () => {
         .expect(200)
         .then(({ body }) => {
           const {articles} = body;
-          
           articles.forEach((article) => {
             expect(article).toEqual(
               expect.objectContaining({
@@ -260,6 +259,7 @@ describe('app()', () => {
           });
       });
     });
+/*
     describe('GET /api/articles/:article_id (comment count)', () => {
          test('status:200, responds with an article object and it contains comment_count', () => {
            return request(app)
