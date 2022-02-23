@@ -376,7 +376,7 @@ describe('app()', () => {
           });
       });
     });
-/*
+
     describe('GET /api/articles (comment count)', () => {
        test('status:200, Returns article array. Each object in the articles array includes a comment_count listed', () => {
          return request(app)
@@ -412,6 +412,7 @@ describe('app()', () => {
       });
 
     });
+    /*
     describe('POST /api/articles/:article_id/comments, the request accepts a username and a body', () => {
       // This will accept an endpoint of the form  post with /api/articles/4/comments
       test('status:201, responds with item inserted', () => {
