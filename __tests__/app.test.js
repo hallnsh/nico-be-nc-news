@@ -487,7 +487,7 @@ describe('app()', () => {
       });      
 
     });
-    /*
+
     describe('GET /api/articles (query)', () => {
       test('status:200, Query containing valid sort_by, order and topic returns array of objects with correct keys including comment_count', () => {
         return request(app)
@@ -611,6 +611,7 @@ describe('app()', () => {
                });
       });
     });
+    /*
     describe('DEL /api/comments/:comment_id', () => {
 
       test('status:204, deletes the current comment based on a valid comment id', () => {

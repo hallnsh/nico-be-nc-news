@@ -20,7 +20,6 @@ app.get('/api/topics', getTopics);
 //app.get('/api/articles/:article_id', getArticleById);     // superceded
 
 app.patch('/api/articles/:article_id', patchArticleById);
-
 app.get('/api/users', getUsers);
 
 //app.get('/api/articles', getArticles);    // superceded
@@ -28,15 +27,13 @@ app.get('/api/users', getUsers);
 //app.get('/api/articles/:article_id/commentcount', getArticleCommentCount);
 
 app.get('/api/articles/:article_id', getArticleCommentCount);
-
 app.get('/api/articles/:article_id/comments', getCommentsByArticleId);
-
-app.get('/api/articles', getArticlesAndCommentCount);
-
+//app.get('/api/articles', getArticlesAndCommentCount);
 app.post('/api/articles/:article_id/comments', postCommentByArticleId);
 
-/*
+
 app.get('/api/articles', getArticlesByQuery);
+/*
 app.delete('/api/comments/:comment_id', deleteCommentById);
 */
 
