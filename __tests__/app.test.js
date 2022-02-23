@@ -412,17 +412,27 @@ describe('app()', () => {
       });
 
     });
-    /*
+    
     describe('POST /api/articles/:article_id/comments, the request accepts a username and a body', () => {
       // This will accept an endpoint of the form  post with /api/articles/4/comments
       test('status:201, responds with item inserted', () => {
         const newCommentObject = {username: 'icellusedkars', 
                                   body: 'Rain beats on my window and the moon lights up the dark'};
+        const newCommentObject1 = {username: 'butter_bridge', 
+                                  body: 'shadows chasing midnight and the dogs out on the run begin to bark'};
+
         const expectedReturn = {
                 comment_id: 19,
                 body: 'Rain beats on my window and the moon lights up the dark',
                 article_id: 8,
                 author: 'icellusedkars',
+                votes: 0
+              };
+        const expectedReturn1 = {
+                comment_id: 20,
+                body: 'shadows chasing midnight and the dogs out on the run begin to bark',
+                article_id: 8,
+                author: 'butter_bridge',
                 votes: 0
               };
 
@@ -432,10 +442,22 @@ describe('app()', () => {
          .expect(201)
          .then(({ body }) => {
               const {new_comment} = body;
-     //         console.log('In the then of the POST api request', new_comment)
               expect(new_comment).toEqual(
                 expect.objectContaining(expectedReturn)
               );
+              //----------Check we can add another comment about the same article---------
+              return request(app)
+                      .post('/api/articles/8/comments')
+                      .send(newCommentObject1)
+                      .expect(201)
+                      .then(({ body }) => {
+                            const {new_comment} = body;
+                            expect(new_comment).toEqual(
+                              expect.objectContaining(expectedReturn1)
+                            );
+                        });
+              //-----------------------------------------------------------------------
+
         });
       });
 
@@ -465,6 +487,7 @@ describe('app()', () => {
       });      
 
     });
+    /*
     describe('GET /api/articles (query)', () => {
       test('status:200, Query containing valid sort_by, order and topic returns array of objects with correct keys including comment_count', () => {
         return request(app)
