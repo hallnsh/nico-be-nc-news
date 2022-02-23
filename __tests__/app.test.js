@@ -310,7 +310,7 @@ describe('app()', () => {
             });
         });
     });
-/*
+
     describe('/GET /api/articles/:article_id/comments', () => {
       test('status:200, responds with an array of comment objects', () => {
         return request(app)
@@ -339,8 +339,26 @@ describe('app()', () => {
           const { commentsList } = body;    // body contains article
            expect(commentsList).toHaveLength(11);
         })
-     
       });
+
+      test('status:200, responds with the 11th comment entry correct for article_id = 1', () => {
+        const expectedEntry11 =       {
+          comment_id: 18,
+          votes: 16,
+          created_at: '2020-07-21T00:20:00.000Z',
+          author: 'butter_bridge',
+          body: 'This morning, I showered for nine minutes.'
+        }
+        return request(app)
+          .get('/api/articles/1/comments')
+          .expect(200)
+          .then(({ body }) => {
+            const { commentsList } = body;    // body contains article
+             expect(commentsList[10]).toEqual(expectedEntry11);
+          })
+       
+        });
+
       test('status:404, responds with Article does not exist message for out of range id', () => {
         return request(app)
           .get('/api/articles/99999/comments')          // id is valid but not in table
@@ -358,6 +376,7 @@ describe('app()', () => {
           });
       });
     });
+/*
     describe('GET /api/articles (comment count)', () => {
        test('status:200, Returns article array. Each object in the articles array includes a comment_count listed', () => {
          return request(app)
