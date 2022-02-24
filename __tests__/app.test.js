@@ -611,7 +611,7 @@ describe('app()', () => {
                });
       });
     });
-    /*
+
     describe('DEL /api/comments/:comment_id', () => {
 
       test('status:204, deletes the current comment based on a valid comment id', () => {
@@ -619,17 +619,20 @@ describe('app()', () => {
           .delete('/api/comments/2')
           .expect(204)
           .then(() => {
-            // Now check the database after the delete
+            // Now check the database after the delete. Article with id 1
+            // originally had 11 comments. One of those comments is comment with 
+            // comment_id = 2. So after the delete operation of comment_id=2 the
+            // length of the comment list for article with id=1 should be 10.
              return request(app)
              
                .get('/api/articles/1/comments')
                .expect(200)
                .then(({ body }) => {
                   const {commentsList} = body;
-              //    console.log('----------------body---------------',commentsList);
-                  // there were originall 2 entries in the commentsList returned by
-                  // get('/api/articles/1/comments') that had id=2 and so the length of
-                  // comments list should now be 12 - 2  = 10
+                  console.log('----------------body---------------',commentsList);
+                  // there were originally 11 entries in the commentsList returned by
+                  // get('/api/articles/1/comments') and so after deleting comment with
+                  // comment_id = 2 the length of the comments list should be 11 - 1  = 10
                   expect(commentsList.length).toBe(10);
                     commentsList.forEach((comment, i) => {
                                 expect(comment.comment_id).not.toBe(2);
@@ -643,8 +646,35 @@ describe('app()', () => {
 
         })
       });
+
+      test('status:404, responds with does not exist message for an id that is not present', () => {
+        return request(app)
+          .delete('/api/comments/99999')          // id is valid but not in table
+          .expect(404)
+          .then(({ body: {msg} }) => {
+            expect(msg).toBe('comment does not exist');
+          });
+      });
+
+    test('status:404, responds with comment does not exist for -ve id', () => {
+        return request(app)
+          .delete('/api/comments/-1')       // -ve id is not an id in table
+          .expect(404)
+          .then(({ body: {msg} }) => {
+            expect(msg).toBe('comment does not exist');
+          });
     });
-     */
+
+    test('status:400, responds with invalid id message found message for bad id', () => {
+      return request(app)
+        .delete('/api/comments/not-an-id')       // id is not valid format
+        .expect(400)
+        .then(({ body: {msg} }) => {
+          expect(msg).toBe('invalid id');
+        });
+    });
+  });
+
 });
 
 

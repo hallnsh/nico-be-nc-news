@@ -33,9 +33,9 @@ app.post('/api/articles/:article_id/comments', postCommentByArticleId);
 
 
 app.get('/api/articles', getArticlesByQuery);
-/*
+
 app.delete('/api/comments/:comment_id', deleteCommentById);
-*/
+
 
 
 
