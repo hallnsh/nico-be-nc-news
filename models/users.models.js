@@ -1,4 +1,5 @@
 const db = require('../db/connection');
+const fs = require("fs/promises");
 
 //--------------------------------------------------------
 exports.fetchUserNames = () => {
@@ -18,3 +19,12 @@ exports.fetchOneUser = (username) => {
         return rows[0];
     });
 };
+//--------------------------------------------------------
+exports.fetchEndpointInfo = (fileName) => {
+    return fs
+      .readFile(`./${fileName}`, "utf-8")
+      .then((endpointData) => {
+            const jsonData = JSON.parse(endpointData);
+            return jsonData;
+      });
+  }

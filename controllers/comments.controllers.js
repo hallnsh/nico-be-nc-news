@@ -26,21 +26,12 @@ exports.postCommentByArticleId = (req, res, next) => {
 
 exports.deleteCommentById = (req, res, next) => {
     const commentId = req.params.comment_id;
-    console.log('In deleteCommentById',commentId);
-  //  const isCommentIdValid = fetchCommentById(commentId);   // promise to fetch comment
-    //const comment_body = req.body.body;
-
-//    return Promise.all([commentId, isCommentIdValid])
- //           .then( ([commentId]) => {
- //               return removeCommentById(commentId);
-//            })
-        return removeCommentById(commentId)
+         return removeCommentById(commentId)
             .then((commentId) => {
                 res.status(204).send({msg: `comment ${commentId} deleted`});
             })
             .catch((err) => {
- //       console.log('the error object in promise.all ------',err);
-                next(err);
+                 next(err);
             });
 };
 

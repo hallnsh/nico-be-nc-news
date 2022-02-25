@@ -551,7 +551,7 @@ describe('app()', () => {
                .expect(200)
                .then(({ body }) => {
                 const {articles} = body;
-   //             console.log('articles------the sort_by title-----------------------',articles);
+   
                 articles.forEach((article, i) => {
                  expect(article.article_id).toEqual(expectedReturned_article_id_Order[i]);
                });
@@ -564,7 +564,7 @@ describe('app()', () => {
                .expect(200)
                .then(({ body }) => {
                 const {articles} = body;
-  //              console.log('articles------the sort_by title-----------------------',articles);
+  
                 articles.forEach((article, i) => {
                  expect(article.article_id).toEqual(expectedReturned_article_id_Order[i]);
                });
@@ -629,7 +629,7 @@ describe('app()', () => {
                .expect(200)
                .then(({ body }) => {
                   const {commentsList} = body;
-                  console.log('----------------body---------------',commentsList);
+
                   // there were originally 11 entries in the commentsList returned by
                   // get('/api/articles/1/comments') and so after deleting comment with
                   // comment_id = 2 the length of the comments list should be 11 - 1  = 10
@@ -675,7 +675,26 @@ describe('app()', () => {
     });
   });
 
+  describe('GET /api', () => {
+    test('status:200, returns the json contained within endpoints.json', () => {
+      const expectToContain = ''
+
+      return request(app)
+      .get('/api')       
+      .expect(200)
+      .then(({ body }) => {
+        console.log(body);
+        // Check that the objects containe in endpoints.json are returned
+        expect(body).toEqual(
+          expect.objectContaining({"GET /api": expect.any(Object),
+                            "GET /api/topics": expect.any(Object),
+                            "GET /api/articles/:article_id": expect.any(Object),
+                            "GET /api/articles": expect.any(Object),
+                            "GET /api/articles/:article_id/comments": expect.any(Object),
+                            "POST /api/articles/:article_id/comments": expect.any(Object),
+                            "DELETE /api/comments/:comment_id": expect.any(Object),})
+                      )
+      });
+    });
+  });
 });
-
-
-
