@@ -683,7 +683,7 @@ describe('app()', () => {
       .get('/api')       
       .expect(200)
       .then(({ body }) => {
-        console.log(body);
+      
         // Check that the objects containe in endpoints.json are returned
         expect(body).toEqual(
           expect.objectContaining({"GET /api": expect.any(Object),
