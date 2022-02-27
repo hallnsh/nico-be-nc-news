@@ -1,8 +1,53 @@
 # Northcoders News API
 
+## Introduction
+
+This describes how to setup and configure a very simple backend api which illustrates 2 components (Model and Controllers) of the MVC paradigm. 
+
+It implements a basic data-science functionality embodied withing the CRUD database principle, Create, Read, Update and Delete with endpoints for POST, GET, PATCH and DELETE respectively.
+
+The database used for this example is PostgreSQL which will need to be installed configured and tested prior to working with the example. 
+
+
+
+
+## Initial setup
+
+0   Download and install psql.
+
+1   fork the repo with GitHub
+
+2   from GitHub copy the link to the forked repo
+
+3   Create a suitably named local directory mydir
+    cd mydir
+
+4   clone the repo from within mydir
+    git clone <link copied in item 2 above>
+
+5   Item 4 will create a local directory <cloned-dir> go into that directory
+    cd <cloned-dir>
+
+## Dependencies
+
+
+Ensure the following are installed using npm i 
+
+├── dotenv@16.0.0
+├── express@4.17.2
+├── husky@7.0.4
+├── jest-extended@2.0.0
+├── jest@27.5.1
+├── pg-format@1.0.4
+├── pg@8.7.3
+└── supertest@6.2.2
+
+
+
 ## Add 2 files
-It will be necessary to create 2 additional files within the main directory
-of the project. This is because they are ignored by .gitignore.
+It will be necessary to create 2 additional files within the root directory
+of the project. This is because they are ignored by .gitignore. and not included.
+
 ### Add:
 .env.development
 
@@ -17,4 +62,63 @@ PGDATABASE= <your dev DatabaseName>
 ### this should contain
 
 PGDATABASE= <your test DatabaseName>
+
+## Brief details of the Directory Structure
+
+### ./db
+
+contains JSON source data required to populate development and test databases
+these have identical structure but differ in size.
+
+### ./db/development-data
+contains test data required to seed the database.
+
+### ./db/test-data
+contains test data required to seed the database.
+
+### ./db/seeds
+contains s/w to populate each of the tables in the database (from the source data in './db/development-data' and './db/test-data'.
+
+this will seed either of 2 databases (development or test) having the following tables:
+
+articles
+comments
+topics
+users
+
+### ./  The root directory
+
+The main calling module is conventionally called
+app.js  - which receives requests to endpoints. 
+
+endpoints.json  - a json representation/description of each endpoint and is returned by the get request to /api
+
+Adhering to the seperation of concerns paradigm the primary functionality is split between a set of controllers and models modules as described below.
+
+### ./models    directory
+
+Contains js modules that handles interaction with the respective PostgreSQL database  tables. Follows the naming convention 'table-name.models.js', files are:
+
+articles.models.js
+comments.models.js
+topics.models.js
+users.models.js
+
+### ./controllers 
+
+Contains js middleware that implements logic to issue the requests from app to/and receive the responses back from the functions within models (models directly handles communication to/from the respective PostgreSQL tables. Follows the naming convention 'table-name.controllers.js', these are:
+
+articles.controllers.js
+comments.controllers.js
+topics.controllers.js
+users.controllers.js
+
+### ./__tests__
+
+contains jest based test modules used to drive the development of the app. 
+
+app.test.js
+utils.test.js
+
+
 
