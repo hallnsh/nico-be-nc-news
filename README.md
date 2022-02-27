@@ -38,16 +38,16 @@ The database used for this example is PostgreSQL which will need to be installed
 
 ### Ensure the following are installed using npm i 
 
- dotenv
- express
- husky
- jest-extended
- jest
- pg-format
- pg
- supertest
+- dotenv
+- express
+- husky
+- jest-extended
+- jest
+- pg-format
+- pg
+- supertest
 
- you can verify what is installed with:
+- you can verify what is installed with:
 
  npm ls
 
@@ -89,10 +89,10 @@ contains s/w to populate each of the tables in the database (from the source dat
 
 this will seed either of 2 databases (development or test) having the following tables:
 
-articles
-comments
-topics
-users
+- articles
+- comments
+- topics
+- users
 
 ### ./  The root directory
 
@@ -109,26 +109,26 @@ Adhering to the seperation of concerns paradigm the primary functionality is spl
 
 Contains js modules that handle interactions (SQL requests and responses) with the respective PostgreSQL database tables. Follows the naming convention 'table-name.models.js', files are:
 
-articles.models.js
-comments.models.js
-topics.models.js
-users.models.js
+- articles.models.js
+- comments.models.js
+- topics.models.js
+- users.models.js
 
 ### ./controllers 
 
 Contains js middleware that implements logic to issue the requests from app to/and receive the responses back from the functions within models (models directly handles communication to/from the respective PostgreSQL tables. Follows the naming convention 'table-name.controllers.js', these are:
 
-articles.controllers.js
-comments.controllers.js
-topics.controllers.js
-users.controllers.js
+- articles.controllers.js
+- comments.controllers.js
+- topics.controllers.js
+- users.controllers.js
 
 ### ./__tests__
 
 contains jest based test modules used to drive the development of the app. 
 
-app.test.js
-utils.test.js
+- app.test.js
+- utils.test.js
 
 
 
