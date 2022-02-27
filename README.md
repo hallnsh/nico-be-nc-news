@@ -9,8 +9,6 @@ It implements a basic data-science functionality embodied withing the CRUD datab
 The database used for this example is PostgreSQL which will need to be installed configured and tested prior to working with the example. 
 
 
-
-
 ## Initial setup
 
 0   Download and install psql.
@@ -19,29 +17,39 @@ The database used for this example is PostgreSQL which will need to be installed
 
 2   from GitHub copy the link to the forked repo
 
-3   Create a suitably named local directory mydir
+3   Create a suitably named local directory mydir i.e. use 
     cd mydir
 
 4   clone the repo from within mydir
     git clone <link copied in item 2 above>
 
-5   Item 4 will create a local directory <cloned-dir> go into that directory
-    cd <cloned-dir>
+5   Item 4 will create a local directory, 'the-cloned-dir' go into that directory:
+
+    cd the-cloned-dir
+
+6   run VS-code from within that directory with
+
+    code .
+
+7   open up a terminal within VS code to start.
 
 ## Dependencies
 
 
-Ensure the following are installed using npm i 
+### Ensure the following are installed using npm i 
 
-├── dotenv@16.0.0
-├── express@4.17.2
-├── husky@7.0.4
-├── jest-extended@2.0.0
-├── jest@27.5.1
-├── pg-format@1.0.4
-├── pg@8.7.3
-└── supertest@6.2.2
+ dotenv
+ express
+ husky
+ jest-extended
+ jest
+ pg-format
+ pg
+ supertest
 
+ you can verify what is installed with:
+
+ npm ls
 
 
 ## Add 2 files
@@ -53,7 +61,7 @@ of the project. This is because they are ignored by .gitignore. and not included
 
 ### This should contain:
 
-PGDATABASE= <your dev DatabaseName>
+PGDATABASE=name-of-your-dev-db
 
 ### Add:
 
@@ -61,7 +69,7 @@ PGDATABASE= <your dev DatabaseName>
 
 ### this should contain
 
-PGDATABASE= <your test DatabaseName>
+PGDATABASE=name-of-your-test-db
 
 ## Brief details of the Directory Structure
 
@@ -89,7 +97,9 @@ users
 ### ./  The root directory
 
 The main calling module is conventionally called
+
 app.js  - which receives requests to endpoints. 
+listen.js   - sets up a local server to listen on localhost: port 9090
 
 endpoints.json  - a json representation/description of each endpoint and is returned by the get request to /api
 
@@ -97,7 +107,7 @@ Adhering to the seperation of concerns paradigm the primary functionality is spl
 
 ### ./models    directory
 
-Contains js modules that handles interaction with the respective PostgreSQL database  tables. Follows the naming convention 'table-name.models.js', files are:
+Contains js modules that handle interactions (SQL requests and responses) with the respective PostgreSQL database tables. Follows the naming convention 'table-name.models.js', files are:
 
 articles.models.js
 comments.models.js
