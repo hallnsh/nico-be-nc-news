@@ -130,5 +130,31 @@ contains jest based test modules used to drive the development of the app.
 - app.test.js
 - utils.test.js
 
+## Testing the Application
+
+In order to test the application it will be necessary to start the PostgreSQL database using sudo as superuser. Use the following command:
+
+sudo service postgresql start
+
+The endpoints app can be tested by issuing the command:
+
+npm test
+
+This will seed the database with test data and run a set of tests designed to prove functionality of each endpoint.
+
+
+## Running the application
+
+- Ensure the database is seeded run the command
+
+npm run seed
+
+- Run the server using the command
+
+node listen
+
+- Use postman, a browser or Insomnia to send requests such as
+
+get /api/articles
 
 
