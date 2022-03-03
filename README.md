@@ -97,7 +97,7 @@ this will seed either of 2 databases (development or test) having the following 
 
 ### ./  The root directory
 
-The main calling module is conventionally called
+The main calling module is conventionally called 'app'
 
 app.js  - which receives requests to endpoints. 
 listen.js   - sets up a local server to listen on localhost: port 9090
