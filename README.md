@@ -48,22 +48,23 @@ The database used for this example is PostgreSQL which will need to be installed
 - supertest
 
 - you can verify what is installed with:
-
+```bash
  npm ls
-
+```
 
 ### Add .env files
 It will be necessary to create 2 additional files within the root directory
 of the project. This is because they are ignored by .gitignore. and not included.
 
-#### Add:
+#### Add - create the file:
+
 .env.development
 
 #### This should contain:
 
 PGDATABASE=name-of-your-dev-db
 
-#### Add:
+#### Add - create the file:
 
 .env.test
 
