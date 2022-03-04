@@ -31,7 +31,8 @@ app.get('/api', getEndpointInfo);
 // this is the wild card app request, i.e. consider all
 // requests with any possible endpoint.
 app.all('/*', (req, res, next) => { 
-    res.status(404).send({msg: 'path not found'});
+ //   res.status(404).send({msg: 'path not found'});
+    res.status(400).send({msg: 'bad request'});
 });
 
 // -------------------------------------------------------

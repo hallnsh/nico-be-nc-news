@@ -47,12 +47,12 @@ describe('app()', () => {
                 expect(topics).toHaveLength(3);
               });
         });
-        test('status:404, responds with path not found message for incorrect path', () => {
+        test('status:400, responds with bad request message for incorrect path', () => {
             return request(app)
               .get('/not-an-endpoint')
-              .expect(404)
+              .expect(400)
               .then(({ body: {msg} }) => {
-                expect(msg).toBe('path not found');
+                expect(msg).toBe('bad request');
               });
         });
     });
@@ -177,12 +177,12 @@ describe('app()', () => {
             expect(userNames).toHaveLength(4);
           });
       });
-      test('status:404, responds with path not found message for incorrect path', () => {
+      test('status:400, responds with bad request message for incorrect path', () => {
         return request(app)
           .get('/api/not-an-endpoint')
-          .expect(404)
+          .expect(400)
           .then(({ body: {msg} }) => {
-            expect(msg).toBe('path not found');
+            expect(msg).toBe('bad request');
           });
       });
     });
@@ -250,12 +250,12 @@ describe('app()', () => {
                     
 
       });
-      test('status:404, responds with path not found message for incorrect path', () => {
+      test('status:400, responds with bad request message for incorrect path', () => {
         return request(app)
           .get('/api/not-an-endpoint')
-          .expect(404)
+          .expect(400)
           .then(({ body: {msg} }) => {
-            expect(msg).toBe('path not found');
+            expect(msg).toBe('bad request');
           });
       });
     });
@@ -402,12 +402,12 @@ describe('app()', () => {
           });
          });
       });
-      test('status:404, responds with path not found message for incorrect path', () => {
+      test('status:400, responds with bad request message for incorrect path', () => {
         return request(app)
           .get('/api/not-an-endpoint')
-          .expect(404)
+          .expect(400)
           .then(({ body: {msg} }) => {
-            expect(msg).toBe('path not found');
+            expect(msg).toBe('bad request');
           });
       });
 
