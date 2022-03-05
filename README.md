@@ -1,57 +1,163 @@
 # Northcoders News API
 
-## Background
+## Introduction
 
-We will be building an API for the purpose of accessing application data programmatically. The intention here is to mimic the building of a real world backend service (such as reddit) which should provide this information to the front end architecture.
+This describes how to setup and configure a very simple backend api which illustrates 2 components (Model and Controllers) of the MVC paradigm. 
 
-Your database will be PSQL, and you will interact with it using [node-postgres](https://node-postgres.com/).
+It implements a basic data-science functionality embodied withing the CRUD database principle, Create, Read, Update and Delete with endpoints for POST, GET, PATCH and DELETE respectively.
 
-## Kanban
+The database used for this example is PostgreSQL which will need to be installed configured and tested prior to working with the example. 
 
-### Link to your Trello Board here: https://trello.com/b/wbSooFHD
 
-To keep track of the tasks involved in this project we're going to use a kanban board. Ensure that you work on one _ticket_ at time. You can click on the ticket to find out more information about what is required for the feature. A ticket is not considered complete unless both the happy path and errors response are handled. You can make use of the checklist on each ticket to keep track of the errors you want to handle. You can also make use of [error-handling.md](error-handling.md) to consider the error codes we may wish to respond with.
+## Initial setup
 
-**Please ensure you work through the tickets from top to bottom.**
+0   Download and install psql.
 
-## Git Branching and Pull Requests
+1   fork the repo with GitHub
 
-You will be working on each ticket on a new **branch**.
+2   from GitHub copy the link to the forked repo
 
-To create and switch to a new git branch use the command:
+3   Create a suitably named local directory mydir i.e. use 
+    cd mydir
 
+4   clone the repo from within mydir
+    git clone <link copied in item 2 above>
+
+5   Item 4 will create a local directory, 'the-cloned-dir' go into that directory:
+
+    cd the-cloned-dir
+
+6   run VS-code from within that directory with
+
+    code .
+
+7   open up a terminal within VS code to start.
+
+## Dependencies
+
+
+### Ensure the following are installed using npm i 
+
+- dotenv
+- express
+- husky
+- jest-extended
+- jest
+- pg-format
+- pg
+- supertest
+
+- you can verify what is installed with:
+```bash
+ npm ls
 ```
-git checkout -b <new branch name>
+
+### Add .env files
+It will be necessary to create 2 additional files within the root directory
+of the project. This is because they are ignored by .gitignore. and not included.
+
+#### Add - create the file:
+
+.env.development
+
+#### This should contain:
+
+PGDATABASE=name-of-your-dev-db
+
+#### Add - create the file:
+
+.env.test
+
+#### this should contain
+
+PGDATABASE=name-of-your-test-db
+
+## Brief details of the Directory Structure
+
+### ./db
+
+contains JSON source data required to populate development and test databases
+these have identical structure but differ in size.
+
+### ./db/development-data
+contains test data required to seed the database.
+
+### ./db/test-data
+contains test data required to seed the database.
+
+### ./db/seeds
+contains s/w to populate each of the tables in the database (from the source data in './db/development-data' and './db/test-data'.
+
+this will seed either of 2 databases (development or test) having the following tables:
+
+- articles
+- comments
+- topics
+- users
+
+### ./  The root directory
+
+The main calling module is conventionally called 'app'
+
+app.js  - which receives requests to endpoints. 
+listen.js   - sets up a local server to listen on localhost: port 9090
+
+endpoints.json  - a json representation/description of each endpoint and is returned by the get request to /api
+
+Adhering to the seperation of concerns paradigm the primary functionality is split between a set of controllers and models modules as described below.
+
+### ./models    directory
+
+Contains js modules that handle interactions (SQL requests and responses) with the respective PostgreSQL database tables. Follows the naming convention 'table-name.models.js', files are:
+
+- articles.models.js
+- comments.models.js
+- topics.models.js
+- users.models.js
+
+### ./controllers 
+
+Contains js middleware that implements logic to issue the requests from app to/and receive the responses back from the functions within models (models directly handles communication to/from the respective PostgreSQL tables. Follows the naming convention 'table-name.controllers.js', these are:
+
+- articles.controllers.js
+- comments.controllers.js
+- topics.controllers.js
+- users.controllers.js
+
+### ./__tests__
+
+contains jest based test modules used to drive the development of the app. 
+
+- app.test.js
+- utils.test.js
+
+## Testing the Application
+
+In order to test the application it will be necessary to start the PostgreSQL database using sudo as superuser. Use the following command:
+
+```bash
+sudo service postgresql start
+```
+The endpoints app can be tested by issuing the command:
+
+```bash
+npm test
+```
+This will seed the database with test data and run a set of tests designed to prove functionality of each endpoint.
+
+
+## Running the application
+
+- Ensure the database is seeded run the command
+```bash
+npm run seed
+```
+- Run the server using the command
+```bash
+node listen
+```
+- Use postman, a browser or Insomnia to send requests such as
+```bash
+get /api/articles
 ```
 
-This will create a branch and move over to that branch. (Omit the `-b` flag if you wish to switch to an already existing branch).
-
-We recommend that you name the branch the number assigned to each ticket. eg. `ncnews-4`
-
-When pushing the branch to git hub ensure that you make reference to the branch you are pushing to on the remote.
-
-```
-git push origin <branch name>
-```
-
-From github you can make a pull request and share the link and ticket number on your `nchelp`. A tutor will swing by to review your code. Ensure that you keep your trello up to date whilst you await the PR approval.
-
-Once a pull request been accepted be sure to switch back to the main branch and pull down the updated changes.
-
-```
-git checkout main
-
-git pull origin main
-```
-
-You can tidy up your local branches once they have been pull into main by deleting them:
-
-```
-git branch -D <local branch>
-```
-
-## Husky
-
-To ensure we are not commiting broken code this project makes use of git hooks. Git hooks are scripts triggered during certain events in the git lifecycle. Husky is a popular package which allows us to set up and maintain these scripts. This project makes use a _pre-commit hook_. When we attempt to commit our work, the script defined in the `pre-commit` file will run. If any of our tests fail than the commit will be aborted.
-
-The [Husky documentation](https://typicode.github.io/husky/#/) explains how to configure Husky for your own project as well as creating your own custom hooks.\_
