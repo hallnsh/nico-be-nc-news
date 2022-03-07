@@ -160,4 +160,10 @@ node listen
 ```bash
 get /api/articles
 ```
+## The app has been hosted using Heroku 
+[documentation](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
+
+The URL for this example app is:
+
+https://nico-be-nc-news.herokuapp.com/api/
 
