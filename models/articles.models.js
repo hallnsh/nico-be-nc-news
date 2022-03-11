@@ -146,7 +146,22 @@ exports.fetchArticlesCommentCount = () => {
 // Takes an api query object containing sanitized query parameters
 // uses the query parameters to create the appropriate query
 // 
+// e.g. /api/articles?order=ASC   sorts the articles in ascending date order
+//      /api/articles?topic=coding
+//      /sort_by=author
+//
+// A composite query could be:
+// /api/articles?sort_by=author&order=ASC&topic=coding
+//
+// If the article is not found you should end up with the famous
+// 404 status with the message 'No results found for that query' 
 // If it exists the query is constructed here because the controllers don't know anything about SQL
+// 
+// The query is constructed in 4 parts, 2 static components, 
+// queryPart1 and queryPart3 
+// plus 2 components which are dependent on details of the query 
+// queryPart2 and queryPart4.
+// 
 //-------------------------------------------------------------------------------------------------
 
 exports.fetchFromArticlesByQuery = (queryContent) => {
@@ -168,14 +183,21 @@ let sortBy = default_sort_by;
 let orderBy = default_order;
 let filterBy = default_topic;
 
+// const sort_by_greenList = [ 'article_id', 
+//                             'title', 
+//                             'topic', 
+//                             'author', 
+//                             'body', 
+//                             'created_at', 
+//                             'votes', 
+//                             'comment_count'];
 const sort_by_greenList = [ 'article_id', 
                             'title', 
                             'topic', 
                             'author', 
                             'body', 
                             'created_at', 
-                            'votes', 
-                            'comment_count'];
+                            'votes'];
 
 const key_greenList = ['sort_by', 'order', 'topic'];
 const order_greenList = ['desc', 'DESC', 'asc', 'ASC'];
@@ -202,7 +224,7 @@ let invalidKey = false;
             return Promise.reject({ status: 400, msg: 'Attempt to query on Invalid key' });
         }
         
-        // if it is not undefined check the sort_by key is allowed
+        // if sort_by key is not undefined check that the sort_by key is allowed
         if (!sort_by_greenList.includes(sort_by) && sort_by !== undefined) {
             return Promise.reject({ status: 400, msg: 'Invalid sort query' });
         }

@@ -8,7 +8,8 @@ require('dotenv').config({
 // if (!process.env.PGDATABASE) {
 //   throw new Error('PGDATABASE not set');
 // }
-
+// Check you have an environment variable to determine which database to connect to
+// Test or production.
 if (!process.env.PGDATABASE && !process.env.DATABASE_URL) {
   throw new Error('PGDATABASE or DATABASE_URL not set');
 }

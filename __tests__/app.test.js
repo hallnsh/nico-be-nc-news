@@ -250,7 +250,7 @@ describe('app()', () => {
                     
 
       });
-      test('status:400, responds with bad request message for incorrect path', () => {
+      test('status:400, responds with bad request message for incorrect URL', () => {
         return request(app)
           .get('/api/not-an-endpoint')
           .expect(400)
